@@ -1,56 +1,51 @@
-import { View, Text, Alert, Button, StyleSheet, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, FlatList, StyleSheet, Pressable, ScrollView, Image, Button } from 'react-native';
 
-
-
+const cores = [
+  'red',
+  'green',
+  'yellow',
+  'purple',
+  'pink',
+  'orange',
+  'lightsteelblue'
+]
 
 export default function App() {
+  const [corDeFundo, setCorDeFundo] = useState('white')
 
+  const changeColor = () => {
+    const randomColor = cores[Math.floor(Math.random() * cores.length)]
+    setCorDeFundo(randomColor)
+  }
 
 
   return (
-    <View style={styles.container}>
-      <View style={styles.profile}>
-        <Image
-          style={styles.image}
-          source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZcpvwgE1mdvU3Rew80M1FeU3HbBHsamRDthpiwH2-RHEPJTseEPscHaqV5dILXO8VbCk&usqp=CAU' }}
-        />
-        <Text style={styles.name}>Nathan Rodrigues</Text>
-        <Text style={styles.bio}>Estudante de EDS no Infnet que está aprendendo React Native e TypeScript</Text>
-      </View>
+    <View style={[styles.container, { backgroundColor: corDeFundo }]}>
+      <Pressable
+        onPress={changeColor}
+        style={styles.botao}
+      >
+        <Text style={styles.texto}> Mudar a cor </Text>
+      </Pressable>
     </View>
   );
 }
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  profile: {
-    flex: 1,
-    width: "100%",
+    paddingTop: 20,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'lightgrey',
+    alignItems: 'center'
   },
-  image: {
-    width: 200,
-    height: 200,
-    borderRadius: 10,
-    marginBottom: 20,
+  botao: {
+    padding: 20,
+    backgroundColor: 'lightgray',
+    borderRadius: 5
   },
-  name: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 20
-  },
-  bio: {
+  texto: {
     fontSize: 18,
-    color: '#000',
-    fontWeight: 'semibold',
-    marginTop: 20,
-    textAlign: 'center'
+    color: '#000'
   }
-
 });
