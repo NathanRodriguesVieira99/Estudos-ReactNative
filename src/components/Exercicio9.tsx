@@ -3,7 +3,7 @@ import { View, Text, Alert, Button, StyleSheet, TouchableOpacity, TextInput, Ima
 
 
 
-export default function App() {
+export default function Exercicio9() {
 
 
 
