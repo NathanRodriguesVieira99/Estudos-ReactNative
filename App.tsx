@@ -1,34 +1,37 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, StyleSheet, Pressable, ScrollView, Image, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView, Image, Button, Alert } from 'react-native';
 
-const cores = [
-  'red',
-  'green',
-  'yellow',
-  'purple',
-  'pink',
-  'orange',
-  'lightsteelblue'
-]
+
 
 export default function App() {
-  const [corDeFundo, setCorDeFundo] = useState('white')
+  const [feedback, setFeedback] = useState('')
 
-  const changeColor = () => {
-    const randomColor = cores[Math.floor(Math.random() * cores.length)]
-    setCorDeFundo(randomColor)
+
+  const handleSendFeedback = () => {
+    if (feedback.trim()) {
+      Alert.alert("Feedback enviado!", "Obrigado pelo seu feedback.")
+      setFeedback('')
+    } else {
+      Alert.alert("Aviso", "O campo de feedback está vazio.")
+    }
   }
 
 
   return (
-    <View style={[styles.container, { backgroundColor: corDeFundo }]}>
-      <Pressable
-        onPress={changeColor}
-        style={styles.botao}
-      >
-        <Text style={styles.texto}> Mudar a cor </Text>
-      </Pressable>
-    </View>
+    <>
+      <View style={styles.container}>
+        <Text style={styles.label}>Deixe seu Feedback</Text>
+        <TextInput
+          style={styles.input}
+          multiline
+          value={feedback}
+          onChangeText={setFeedback}
+          placeholder='Escreva seu feedback'
+          scrollEnabled
+        />
+        <Button title='Enviar Feedback' onPress={handleSendFeedback}/>
+      </View>
+    </>
   );
 }
 
@@ -36,16 +39,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center'
+    marginTop: 40,
+    marginHorizontal: 20,
+    backgroundColor: "#fff"
   },
-  botao: {
-    padding: 20,
-    backgroundColor: 'lightgray',
-    borderRadius: 5
-  },
-  texto: {
+  label: {
     fontSize: 18,
-    color: '#000'
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: " #333"
+  },
+  input: {
+    height: 120,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 16,
+    textAlignVertical: 'top',
+    color: "#333"
   }
 });
